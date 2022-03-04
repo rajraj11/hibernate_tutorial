@@ -24,6 +24,18 @@ public class TestHibernate {
         {
             e.printStackTrace();
         }
+        session=factory.getCurrentSession();
+        try
+        {
+            session.beginTransaction();
+            Student myStudent=session.get(Student.class,2);
+            System.out.println("-----------------"+myStudent+"--------------------");
+            session.getTransaction().commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         finally {
             factory.close();
         }
