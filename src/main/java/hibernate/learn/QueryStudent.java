@@ -54,10 +54,11 @@ public class QueryStudent {
 
             LOG.info("-------------------  Deleting column ------------------------------------------------");
             Student s1=session.get(Student.class,1);
-            session.delete(s1);
+            if(s1!=null)
+                session.delete(s1);
 
             session.createQuery("delete from Student where id=2").executeUpdate();
-            
+
 
             session.getTransaction().commit();
 
