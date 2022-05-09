@@ -1,4 +1,4 @@
-package hibernate.learn;
+package hibernate.learn.oneToOne;
 
 import entity.Instructor;
 import entity.InstructorDetail;
@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class InstructorDetailDeleteDemo {
+public class InstructorDetailDemo {
     public static void main(String[] args) {
         SessionFactory factory=new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -18,7 +18,7 @@ public class InstructorDetailDeleteDemo {
             session.beginTransaction();
             int id=2;
             InstructorDetail instructorDetail=session.get(InstructorDetail.class,id);
-            session.delete(instructorDetail);
+            System.out.println("--------"+instructorDetail.getInstructor().toString());
             session.getTransaction().commit();
         }
         catch (Exception e)

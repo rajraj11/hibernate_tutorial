@@ -1,4 +1,4 @@
-package hibernate.learn;
+package hibernate.learn.oneToOne;
 
 import entity.Instructor;
 import entity.InstructorDetail;

@@ -1,6 +1,8 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "instructor")
@@ -23,6 +25,9 @@ public class Instructor {
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
 
+    @OneToMany(mappedBy = "instructor",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<Course> courseList;
+
     public Instructor() {
     }
 
@@ -30,13 +35,6 @@ public class Instructor {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    public Instructor(String firstName, String lastName, String email, InstructorDetail instructorDetail) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.instructorDetail = instructorDetail;
     }
 
     public int getId() {
@@ -71,12 +69,28 @@ public class Instructor {
         this.email = email;
     }
 
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
     public InstructorDetail getInstructorDetail() {
         return instructorDetail;
     }
 
     public void setInstructorDetail(InstructorDetail instructorDetail) {
         this.instructorDetail = instructorDetail;
+    }
+
+    public void add(Course course)
+    {
+        if(course==null)
+            courseList=new ArrayList<>();
+        courseList.add(course);
+        course.setInstructor(this);
     }
 
     @Override
@@ -87,6 +101,7 @@ public class Instructor {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", instructorDetail=" + instructorDetail +
+                ", courseList=" + courseList +
                 '}';
     }
 }
